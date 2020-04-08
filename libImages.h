@@ -1,4 +1,4 @@
-/* outils liés aux images - format pgm/ppm */
+/* outils liÃ©s aux images - format pgm/ppm */
 
 #pragma once
 
@@ -10,7 +10,7 @@
 
 #include "libOutils.h"
 
-	/* structure IMAGE en ndg, accès à un pixel par .data[i] ou .pixel[i][j] */
+	/* structure IMAGE en ndg, accÃ¨s Ã  un pixel par .data[i] ou .pixel[i][j] */
 	typedef struct image {
 		int   Nblig;
 		int   Nbcol;
@@ -25,7 +25,7 @@
 		unsigned char B;
 	} RGB;
 
-	/* structure IMAGE en ndg, accès à la composante R d'un pixel par .data[i].R ou .pixel[i][j].R */
+	/* structure IMAGE en ndg, accÃ¨s Ã  la composante R d'un pixel par .data[i].R ou .pixel[i][j].R */
 	typedef struct imageRGB {
 		int   Nblig;
 		int   Nbcol;
@@ -33,7 +33,7 @@
 		RGB** pixel;
 	} IMAGERGB;
 
-	/* signatures basées histogramme */
+	/* signatures basÃ©es histogramme */
 	typedef struct signatures {
 		int 	min;
 		int 	max;
@@ -43,19 +43,19 @@
 	} SIGNATURES;
 
 
-	IMAGE allocationImage(int Nblig, int Nbcol); /* réservation en mémoire d'une image ndg */
-	void initialisationAleatoireImage(IMAGE img, int ngMin, int ngMax); /* remplissage aléatoire des ndg d'une image ndg préalablement allouée */
+	IMAGE allocationImage(int Nblig, int Nbcol); /* rÃ©servation en mÃ©moire d'une image ndg */
+	void initialisationAleatoireImage(IMAGE img, int ngMin, int ngMax); /* remplissage alÃ©atoire des ndg d'une image ndg prÃ©alablement allouÃ©e */
 
 	void sauvegardeImage(IMAGE img, const char *type, const char *out); /* sauvegarde d'une image ndg type "P2" ou "P5" */
-	void liberationImage(IMAGE *im); /* libération mémoire image ndg */
+	void liberationImage(IMAGE *im); /* libÃ©ration mÃ©moire image ndg */
 
-	IMAGE lectureImage(const char *nom); /* mise en mémoire d'une image au format pgm */
+	IMAGE lectureImage(const char *nom); /* mise en mÃ©moire d'une image au format pgm */
 
-	IMAGERGB allocationImageRGB(int Nblig, int Nbcol); /* réservation en mémoire d'une image RGB  */
-	IMAGERGB lectureImageRGB(const char *nom); /* mise en mémoire d'une image au format ppm */
+	IMAGERGB allocationImageRGB(int Nblig, int Nbcol); /* rÃ©servation en mÃ©moire d'une image RGB  */
+	IMAGERGB lectureImageRGB(const char *nom); /* mise en mÃ©moire d'une image au format ppm */
 
 	void sauvegardeImageRGB(IMAGERGB img, const char *type, const char *out); /* sauvegarde d'une image RGB type "P3" ou "P6" */	 
-	void liberationImageRGB(IMAGERGB *im); /* libération mémoire image RGB */
+	void liberationImageRGB(IMAGERGB *im); /* libÃ©ration mÃ©moire image RGB */
 
 	IMAGE planImage(IMAGERGB img, int plan);
 	IMAGE luminanceImage(IMAGERGB img, float r, float g, float b);
@@ -67,9 +67,7 @@
 	IMAGE egalisationImage(IMAGE img);
 	SIGNATURES signaturesImage(IMAGE img);
 	IMAGERGB colorisationImage(IMAGE img, char *table);
-
 	IMAGE seuillageOtsu(IMAGE img);
-
 	IMAGERGB bruitAleatoireImage(IMAGERGB img, int amplitude);
 	double distanceHistogrammeImage(TABLEAU_INT h1, TABLEAU_INT h2);
 	IMAGE fct_complement(IMAGE ImgInput);
