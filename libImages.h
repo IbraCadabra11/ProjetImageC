@@ -72,7 +72,8 @@
 	double distanceHistogrammeImage(TABLEAU_INT h1, TABLEAU_INT h2);
 	IMAGE fct_complement(IMAGE ImgInput);
 	IMAGE fct_EtiquettageImage(IMAGE ImgInput);
-	IMAGE fct_replicateImage(IMAGE ImgInput,int nb_duplicate);
+	IMAGE fct_replicateImage(IMAGE ImgInput, int nb_duplicate); 
+	IMAGE Division_Image(IMAGE ImgInput, int Nord);
 
 #endif LIB_IMAGES_H
 

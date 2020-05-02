@@ -907,3 +907,38 @@ IMAGE fct_EtiquettageImage(IMAGE ImgInput)
 {
 
 }**/
+
+IMAGE Division_Image(IMAGE ImgInput,int Nord) //Nord = 1 donc return(ImgOutNord) Nord =0 donc return(ImgOutSud)
+{
+
+	IMAGE ImgOutNord = { 0,0,NULL,NULL };
+	IMAGE ImgOutSud = { 0,0,NULL,NULL };
+
+	int NbligImgOutput = ImgInput.Nblig * ImgInput.Nbcol / 2;
+	int k = 0;
+
+
+	if (Nord == 1)
+	{
+		ImgOutNord = allocationImage(ImgInput.Nblig/2, ImgInput.Nbcol);
+		for (int i = 0; i < NbligImgOutput; i++)
+		{
+			ImgOutNord.data[i] = ImgInput.data[i];
+
+		}
+		return(ImgOutNord);
+	}
+	if (Nord == 0)
+	{	
+		ImgOutSud = allocationImage(ImgInput.Nblig/2, ImgInput.Nbcol);
+
+		for (int j = NbligImgOutput; j < ImgInput.Nblig * ImgInput.Nbcol; j++, k++)
+		{
+
+		ImgOutSud.data[k] = ImgInput.data[j];
+
+		}
+
+		return(ImgOutSud);
+	}
+}
