@@ -1,0 +1,59 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+#include "libImages.h"
+
+IMAGE ElementStructurantV4(void)
+{
+	IMAGE ElementStructurant = allocationImage(3, 3); // on carcatérise l'élément structurant V4 (une croix de 3x3 pixels)
+
+	ElementStructurant.pixel[0][0] = 0;
+	ElementStructurant.pixel[0][1] = 255;
+	ElementStructurant.pixel[0][2] = 0;
+
+	ElementStructurant.pixel[1][0] = 255;
+	ElementStructurant.pixel[1][1] = 255;
+	ElementStructurant.pixel[1][2] = 255;
+
+	ElementStructurant.pixel[2][0] = 0;
+	ElementStructurant.pixel[2][1] = 255;
+	ElementStructurant.pixel[2][2] = 0;
+
+	return ElementStructurant;
+}
+
+IMAGE ElementStructurantLigne(void)
+{
+	IMAGE ElementStructurant = allocationImage(3, 3); // on carcatérise l'élément structurant Ligne Horizontale 
+
+	ElementStructurant.pixel[0][0] = 0;
+	ElementStructurant.pixel[0][1] = 0;
+	ElementStructurant.pixel[0][2] = 0;
+
+	ElementStructurant.pixel[1][0] = 255;
+	ElementStructurant.pixel[1][1] = 255;
+	ElementStructurant.pixel[1][2] = 255;
+
+	ElementStructurant.pixel[2][0] = 0;
+	ElementStructurant.pixel[2][1] = 0;
+	ElementStructurant.pixel[2][2] = 0;
+
+	return ElementStructurant;
+
+	IMAGE Erosion(IMAGE imgIn, IMAGE ElementStructrantLigne);
+	{
+		int i, j;
+		IMAGE imgIn;
+		IMAGE imgOut;
+		int ResErosion;
+
+		for (i = 0; i < imgIn.Nblig; i++); {
+			for (int j = 0; j < imgIn.Nbcol; j++); {
+				ResErosion = imgIn.pixel[i][j - 1] * imgIn.pixel[i][j] * imgIn.pixel[i][j + 1];
+				imgOut.pixel[i][j] = ResErosion;
+			}
+		
+	}
+	}
