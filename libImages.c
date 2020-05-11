@@ -1062,3 +1062,159 @@ IMAGE Division_Image(IMAGE ImgInput,int Nord) //Nord = 1 donc return(ImgOutNord)
 		return(ImgOutSud);
 	}
 }
+
+
+POINT Center_of_Gravity(IMAGE ImgInput)// x : ligne y: colonne determine le centre de gravite d'une composante connexe
+{
+
+	POINT p = { 0,0 };
+	int i, j, nbpoint = 0;
+	for (i = 0; i < ImgInput.Nblig; i++)
+	{
+		for (j = 0; j < ImgInput.Nbcol; j++)
+		{
+
+			if (ImgInput.pixel[i][j] == 255)
+			{
+				p.abscisse = p.abscisse + (double)i;
+				p.ordonnee = p.ordonnee + (double)j;
+				nbpoint = nbpoint + 1;
+
+
+
+			}
+		}
+	}
+		
+		
+	 p.abscisse = (int) p.abscisse / (nbpoint);
+	 p.ordonnee = (int) p.ordonnee / (nbpoint);
+
+	return p;
+
+}
+
+double Distance_pixel(POINT p1,POINT p2) // distance euclidienne entre deux pixels
+{
+
+	double ecart = (double)(p1.abscisse - p2.abscisse) * (p1.abscisse - p2.abscisse);
+	double d = ecart;
+
+	ecart = (double)(p1.ordonnee - p2.ordonnee) * (p1.ordonnee - p2.ordonnee);
+	d += ecart;
+
+	d = sqrt(d);
+	return d;
+
+
+}
+
+
+double Cercle_Inscrit(IMAGE ImgInput)// l'objet est plein ( par exemple un disque blanc ou carré blanc) ,recherche la distance minimal entre un pixel noir et le centre de gravité 
+
+{
+	double R = 0;
+	int taille = ImgInput.Nblig * ImgInput.Nbcol;
+	int k = 0;
+	POINT p = { 0,0 };
+	POINT Centre = Center_of_Gravity(ImgInput, p);
+	POINT px = { 0,0 };
+	TABLEAU_DOUBLE TabDist = { 0,NULL };
+	TabDist = allocationTableauDouble(taille);
+
+
+	for (int i = 0; i < ImgInput.Nblig; i++)
+	{
+		for (int j = 0; j < ImgInput.Nbcol; j++)
+		{
+			
+
+			if (ImgInput.pixel[i][j] == 0 )
+			{
+				
+				px.abscisse = (double)i;
+				px.ordonnee = (double)j;
+				TabDist.data[k] = Distance_pixel(Centre, px);
+				k++;
+				
+ 
+			}
+			
+			
+
+		}
+	}
+
+	for (int i = 1; i < ImgInput.Nblig * ImgInput.Nbcol; i++)
+	{
+		R = TabDist.data[0];
+		if (TabDist.data[i] < R)
+		{
+			R = TabDist.data[i];
+		}
+
+		
+
+	}
+
+
+	liberationTableauDouble(&TabDist);
+	return R;
+
+}
+
+
+
+
+double Cercle_Circonscrit(IMAGE ImgInput)// l'objet est plein ( par exemple un disque blanc ou carré blanc) ,recherche la distance maximale entre un pixel blanc et le centre de gravité 
+
+
+{
+	double R = 0;
+	int taille = ImgInput.Nblig * ImgInput.Nbcol;
+	int k = 0;
+	POINT p = { 0,0 };
+	POINT Centre = Center_of_Gravity(ImgInput, p);
+	POINT px = { 0,0 };
+	TABLEAU_DOUBLE TabDist = { 0,NULL };
+	TabDist = allocationTableauDouble(taille);
+
+	for (int i = 0; i < ImgInput.Nblig; i++)
+	{
+		for (int j = 0; j < ImgInput.Nbcol; j++)
+		{
+
+
+			if (ImgInput.pixel[i][j] == 255)
+			{
+			
+				px.abscisse = (double)i;
+				px.ordonnee = (double)j;
+				TabDist.data[k] = Distance_pixel(Centre, px);
+				k++;
+
+
+			}
+
+
+
+		}
+	}
+
+	for (int i = 1; i < ImgInput.Nblig * ImgInput.Nbcol; i++)
+	{
+		R = TabDist.data[0];
+		if (TabDist.data[i] > R)
+		{
+			R = TabDist.data[i];
+		}
+
+
+
+	}
+
+
+	liberationTableauDouble(&TabDist);
+	return R;
+
+}
