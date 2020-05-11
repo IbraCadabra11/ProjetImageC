@@ -136,7 +136,29 @@ TABLEAU_INT allocationTableau(int n)
 	return(t);
 }
 
+TABLEAU_DOUBLE allocationTableauDouble(int n)
+
+{
+	TABLEAU_DOUBLE t = { 0,NULL };
+
+	t.size = n;
+	t.data = (double*)calloc(n, sizeof(double));
+
+	return(t);
+
+
+
+
+}
+
 void liberationTableau(TABLEAU_INT *t)
+{
+	free(t->data);
+	t->data = NULL;
+	t->size = 0;
+}
+
+void liberationTableauDouble(TABLEAU_DOUBLE* t) 
 {
 	free(t->data);
 	t->data = NULL;
@@ -166,7 +188,7 @@ MOMENTS momentsTableau(TABLEAU_INT t)
 
 	TABLEAU_INT h = allocationTableau(256); /* valeurs entre 0 et 255 uniquement */
 
-	for (i = 0; i < t.size; i++) /* génération histogramme parcours tableau entrée une fois pour toutes, tous les moments en découlent */
+	for (i = 0; i < t.size; i++) /* gÃ©nÃ©ration histogramme parcours tableau entrÃ©e une fois pour toutes, tous les moments en dÃ©coulent */
 		h.data[t.data[i]] += 1;
 
 	for (i = 0; i < h.size; i++) {
@@ -215,7 +237,7 @@ char* tirageMot(int taille)
 	char *mot = NULL;
 	int i;
 
-	mot = (char*)malloc((taille + 1)*sizeof(char)); /* intégrer le caractère fin de chaîne */
+	mot = (char*)malloc((taille + 1)*sizeof(char)); /* intÃ©grer le caractÃ¨re fin de chaÃ®ne */
 	for (i = 0; i < taille; i++)
 		mot[i] = tirageLettre();
 	mot[i] = '\0';
@@ -248,7 +270,7 @@ void multiplicationVoyellesMot(char* mot1, int taille1, int coef, char** mot2, i
 	}
 
 	*taille2 = (taille1 - nbVoy) + nbVoy*coef;
-	*mot2 = (char*)malloc((*taille2 + 1)*sizeof(char)); /* intégrer le caractère fin de chaîne */
+	*mot2 = (char*)malloc((*taille2 + 1)*sizeof(char)); /* intÃ©grer le caractÃ¨re fin de chaÃ®ne */
 
 	int indice = 0;
 	for (i = 0; i < taille1; i++)
@@ -266,7 +288,7 @@ void multiplicationVoyellesMot(char* mot1, int taille1, int coef, char** mot2, i
 		default: (*mot2)[indice++] = mot1[i];
 		}
 	}
-	(*mot2)[indice] = '\0'; /* caractère fin de chaîne */
+	(*mot2)[indice] = '\0'; /* caractÃ¨re fin de chaÃ®ne */
 }
 
 char* copieMot(char* mot, int taille)
@@ -274,7 +296,7 @@ char* copieMot(char* mot, int taille)
 	char *mot2 = NULL;
 	int i;
 
-	mot2 = (char*)malloc((taille + 1)*sizeof(char)); /* intégrer le caractère fin de chaîne */
+	mot2 = (char*)malloc((taille + 1)*sizeof(char)); /* intÃ©grer le caractÃ¨re fin de chaÃ®ne */
 	for (i = 0; i < taille; i++)
 		mot2[i] = mot[i];
 	mot2[i] = '\0';
