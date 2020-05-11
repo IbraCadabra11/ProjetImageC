@@ -74,6 +74,10 @@
 	IMAGE fct_EtiquettageImage(IMAGE ImgInput);
 	IMAGE fct_replicateImage(IMAGE ImgInput, int nb_duplicate); 
 	IMAGE Division_Image(IMAGE ImgInput, int Nord);
+	POINT Center_of_Gravity(IMAGE ImgInput);
+	double Distance_pixel(POINT p1, POINT p2);
+	double Cercle_Inscrit(IMAGE ImgInput);
+	double Cercle_Circonscrit(IMAGE ImgInput);
 
 #endif LIB_IMAGES_H
 
