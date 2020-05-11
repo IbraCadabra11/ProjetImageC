@@ -22,6 +22,11 @@ typedef struct {
 } TABLEAU_INT;
 
 typedef struct {
+	int size;
+	double* data;
+} TABLEAU_DOUBLE;
+
+typedef struct {
 	int height;
 	int width;
 	int **data;
@@ -59,6 +64,8 @@ TABLEAU_INT allocationTableau(int n);
 void minMaxTableau(TABLEAU_INT t, int *Min, int *Max);
 MOMENTS momentsTableau(TABLEAU_INT t);
 void liberationTableau(TABLEAU_INT *t);
+void liberationTableauDouble(TABLEAU_DOUBLE* t);
+TABLEAU_DOUBLE allocationTableauDouble(int n);
 
 char tirageLettre(void);
 char* tirageMot(int taille);
