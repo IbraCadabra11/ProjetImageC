@@ -1196,19 +1196,19 @@ STRCT_ELEMENT allocationStructElement(int Nblig, int Nbcol)
 	{
 		STRCT_ELEMENT mat = { 0,0,NULL,NULL };
 		int i;
-		mat.NbLign = Nblig;
+		mat.NbLig = Nblig;
 		mat.NbCol = Nbcol;
 		mat.data = (unsigned char*)malloc(Nblig*Nbcol * sizeof(unsigned char));
 		if (mat.data == NULL)
 			return(mat);
-		mat.Pixel = (unsigned char**)malloc(Nblig * sizeof(unsigned char*));
-		if (mat.Pixel == NULL) {
+		mat.pixel = (unsigned char**)malloc(Nblig * sizeof(unsigned char*));
+		if (mat.pixel == NULL) {
 			free(mat.data);
 			mat.data = NULL;
 			return(mat);
 		}
 		for (i = 0; i<Nblig; i++)
-			mat.Pixel[i] = &mat.data[i*Nbcol];
+			mat.pixel[i] = &mat.data[i*Nbcol];
 		return(mat);
 	}
 
