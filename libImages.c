@@ -840,32 +840,6 @@ IMAGERGB bruitAleatoireImage(IMAGERGB img, int amplitude)
 
 	return out;
 }
-
-IMAGE fct_complement(IMAGE ImgInput)
-{
-	IMAGE ImOut = { 0,0,NULL,NULL };
-	TABLEAU_INT ComplementLut = {0,NULL};
-	int Val_Tempo = 0;
-	ImOut = allocationImage(ImgInput.Nblig, ImgInput.Nbcol);
-	ComplementLut = allocationTableau(256);
-	for (int i = 0; i <ComplementLut.size; i++)
-	{
-		ComplementLut.data[i] = i;
-	}
-	for (int i = 0; i < (ComplementLut.size/2); i++)
-	{
-		Val_Tempo = ComplementLut.data[i];
-		ComplementLut.data[i] = ComplementLut.data[ComplementLut.size - i];
-		ComplementLut.data[ComplementLut.size - i] = Val_Tempo;
-	}
-	for (int i = 0; i < ImgInput.Nblig*ImgInput.Nbcol; i++)
-	{
-		ImOut.data[i] = ComplementLut.data[ImgInput.data[i]];
-	}
-	liberationTableau(&ComplementLut);
-	return (ImOut);
-}
-
 IMAGE fct_replicateImage(IMAGE ImgInput, int nb_duplicate)
 {
 	IMAGE ImgOut = { 0,0,NULL,NULL };
