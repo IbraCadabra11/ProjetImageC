@@ -1193,32 +1193,70 @@ double Cercle_Circonscrit(IMAGE ImgInput)// l'objet est plein ( par exemple un d
 
 }
 STRCT_ELEMENT allocationStructElement(int Nblig, int Nbcol)
-	{
-		STRCT_ELEMENT mat = { 0,0,NULL,NULL };
-		int i;
-		mat.NbLig = Nblig;
-		mat.NbCol = Nbcol;
-		mat.data = (unsigned char*)malloc(Nblig*Nbcol * sizeof(unsigned char));
-		if (mat.data == NULL)
-			return(mat);
-		mat.pixel = (unsigned char**)malloc(Nblig * sizeof(unsigned char*));
-		if (mat.pixel == NULL) {
-			free(mat.data);
-			mat.data = NULL;
-			return(mat);
-		}
-		for (i = 0; i<Nblig; i++)
-			mat.pixel[i] = &mat.data[i*Nbcol];
+{
+	STRCT_ELEMENT mat = { 0,0,NULL,NULL };
+	int i;
+	mat.NbLig = Nblig;
+	mat.NbCol = Nbcol;
+	mat.data = (int*)malloc(Nblig * Nbcol * sizeof(int));
+	if (mat.data == NULL)
+		return(mat);
+	mat.pixel = (int**)malloc(Nblig * sizeof(int*));
+	if (mat.pixel == NULL) {
+		free(mat.data);
+		mat.data = NULL;
 		return(mat);
 	}
+	for (i = 0; i < Nblig; i++)
+		mat.pixel[i] = &mat.data[i * Nbcol];
+	return(mat);
+}
 
 STRCT_ELEMENT fct_generationElementStructurant(int type_Elem, int tailleES)
+{
+	STRCT_ELEMENT ElemStruct = { 0,0,NULL,NULL };
+	
+
+	if (type_Elem == 1)
 	{
-		STRCT_ELEMENT ElemStruct = { 0,0,NULL,NULL };
-		if (type_Elem== 1)
+		double R,D;
+		int Nblig = (tailleES * 2) + 1;
+		int Nbcol = (tailleES * 2) + 1;
+		int ci =  tailleES;
+		int cj = tailleES;
+		ElemStruct = allocationStructElement(Nblig, Nbcol);
+
+		for (int i = 0; i < Nblig; i++)
 		{
-			ElemStruct = allocationStructElement((tailleES * 2) + 1, (tailleES * 2) + 1);
+			for (int j = 0; j < Nbcol; j++)
+			{
+				D = (double)((i - ci) * (i - ci) + (j - cj) * (j - cj));
+				R = sqrt(D);
+				if (R <= (double)tailleES)
+				{
+					ElemStruct.pixel[i][j] = 1;
+					
+
+
+				}
+				
+				else 
+				{
+					ElemStruct.pixel[i][j] = 0;
+
+
+				}
+				printf("%d", ElemStruct.pixel[i][j]);
+			}
+			printf("\n");
+
+
 		}
-		
+
+
 
 	}
+	system("pause");
+
+	return ElemStruct;
+}
