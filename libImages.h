@@ -83,7 +83,7 @@
 		int NbLig;
 		int NbCol;
 		int *data;
-		int **Pixel;
+		int **pixel;
 	}STRCT_ELEMENT;
 	/********************type_Elem : le type d'element structurant==> Disk : 1 ou Ligne  : 2_____TailleEs : rayon pour le disk**********************/
 	STRCT_ELEMENT fct_generationElementStructurant(int type_Elem, int tailleES);
