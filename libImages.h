@@ -80,7 +80,7 @@
 	// Element structurant
 	typedef struct 
 	{
-		int NbLign;
+		int NbLig;
 		int NbCol;
 		int *data;
 		int **Pixel;
