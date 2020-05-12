@@ -70,7 +70,6 @@
 	IMAGE seuillageOtsu(IMAGE img);
 	IMAGERGB bruitAleatoireImage(IMAGERGB img, int amplitude);
 	double distanceHistogrammeImage(TABLEAU_INT h1, TABLEAU_INT h2);
-	IMAGE fct_complement(IMAGE ImgInput);
 	IMAGE fct_EtiquettageImage(IMAGE ImgInput);
 	IMAGE fct_replicateImage(IMAGE ImgInput, int nb_duplicate); 
 	IMAGE Division_Image(IMAGE ImgInput, int Nord);
@@ -78,6 +77,17 @@
 	double Distance_pixel(POINT p1, POINT p2);
 	double Cercle_Inscrit(IMAGE ImgInput);
 	double Cercle_Circonscrit(IMAGE ImgInput);
+	// Element structurant
+	typedef struct 
+	{
+		int NbLign;
+		int NbCol;
+		int *data;
+		int **Pixel;
+	}STRCT_ELEMENT;
+	/********************type_Elem : le type d'element structurant==> Disk : 1 ou Ligne  : 2_____TailleEs : rayon pour le disk**********************/
+	STRCT_ELEMENT fct_generationElementStructurant(int type_Elem, int tailleES);
+	STRCT_ELEMENT allocationStructElement(int Nblig, int Nbcol); /* réservation en mémoire d'un element structurant */
 
 #endif LIB_IMAGES_H
 
