@@ -88,6 +88,9 @@
 	/********************type_Elem : le type d'element structurant==> Disk : 1 ou Ligne  : 2_____TailleEs : rayon pour le disk**********************/
 	STRCT_ELEMENT fct_generationElementStructurant(int type_Elem, int tailleES);
 	STRCT_ELEMENT allocationStructElement(int Nblig, int Nbcol); /* réservation en mémoire d'un element structurant */
+	IMAGE fct_bouchageTrou(IMAGE Imin);
+	int fct_countobject(IMAGE ImgIn);
+	int fct_EulerNumber(IMAGE ImgIn);
 
 #endif LIB_IMAGES_H
 
