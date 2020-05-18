@@ -1260,3 +1260,127 @@ STRCT_ELEMENT fct_generationElementStructurant(int type_Elem, int tailleES)
 
 	return ElemStruct;
 }
+//Fonction bouchage des trous d'une image binaire
+IMAGE fct_bouchageTrou(IMAGE Imgin)
+{
+		IMAGE filledIm = { 0,0,NULL,NULL }, Imcomp = { 0,0,NULL,NULL }, ImgLab = { 0,0,NULL,NULL};
+		TABLEAU_INT LUT_SuppBordHBGD = { 0,NULL };
+		LUT_SuppBordHBGD = allocationTableau(256);
+		int ind = 0;
+		Imcomp = allocationImage(Imgin.Nblig, Imgin.Nbcol);
+		filledIm = allocationImage(Imgin.Nblig, Imgin.Nbcol);
+		ImgLab = allocationImage(Imgin.Nblig, Imgin.Nbcol);
+		Imcomp = inverseImage(Imgin);
+		ImgLab = fct_EtiquettageImage(Imcomp);
+		for (int i = 0; i < 1, i<ImgLab.Nbcol-1; i++)
+		{
+			LUT_SuppBordHBGD.data[ImgLab.pixel[0][i]] += 1;
+		}
+		for (int i = 0; i < ImgLab.Nbcol; i++)
+		{
+			LUT_SuppBordHBGD.data[ImgLab.pixel[ImgLab.Nbcol-1][i]] += 1; // Comptage des pixels du bord bas
+		}
+		for (int i = ind; i < ImgLab.Nblig; i++)
+		{
+			LUT_SuppBordHBGD.data[ImgLab.pixel[i][0]] += 1; // Comptage des pixels du bord gauche
+		}
+		for (int i = ind; i < ImgLab.Nblig; i++)
+		{
+			LUT_SuppBordHBGD.data[ImgLab.pixel[i][ImgLab.Nbcol-1]] += 1; // Comptage des pixels du bord droit
+		}
+		// Inversion de la LUT
+		for (int i = 1; i < LUT_SuppBordHBGD.size; i++)
+		{
+			if(LUT_SuppBordHBGD.data[i]==0)
+			{
+				LUT_SuppBordHBGD.data[i] = 255;
+			}
+			else
+			{
+				LUT_SuppBordHBGD.data[i] = 0;
+			}
+		}
+		for (int i = 0; i < (ImgLab.Nblig*ImgLab.Nbcol); i++)
+		{
+			filledIm.data[i] = LUT_SuppBordHBGD.data[ImgLab.data[i]];
+		}
+		for (int i = 0; i < (ImgLab.Nblig*ImgLab.Nbcol); i++)
+		{
+			filledIm.data[i] += Imgin.data[i];
+		}
+		liberationImage(&Imcomp);
+		liberationImage(&ImgLab);
+		return(filledIm);
+		
+}
+
+int fct_countobject(IMAGE ImgIn)
+	{
+		int nb_Object = 0;
+		TABLEAU_INT Hist = { 0,NULL };
+		Hist = allocationTableau(256);
+		Hist = histogrammeImage(ImgIn, 0);
+		for (int i = 1; i < Hist.size; i++)
+		{
+			if (Hist.data[i] != 0)
+			{
+				nb_Object++;
+			}
+		}
+		liberationTableau(&Hist);
+		return(nb_Object);
+	}
+
+int fct_EulerNumber(IMAGE ImgIn)
+	{
+		IMAGE filledIm = { 0,0,NULL,NULL }, Imcomp = { 0,0,NULL,NULL }, ImgLab = { 0,0,NULL,NULL }, ImgLab2 = { 0,0,NULL,NULL };
+		TABLEAU_INT LUT_SuppBordHBGD = { 0,NULL };
+		LUT_SuppBordHBGD = allocationTableau(256);
+		int ind = 0, nb_trou = 0;
+		Imcomp = allocationImage(ImgIn.Nblig, ImgIn.Nbcol);
+		filledIm = allocationImage(ImgIn.Nblig, ImgIn.Nbcol);
+		ImgLab = allocationImage(ImgIn.Nblig, ImgIn.Nbcol);
+		Imcomp = inverseImage(ImgIn);
+		ImgLab = fct_EtiquettageImage(Imcomp);
+		for (int i = 0; i < 1, i<ImgLab.Nbcol - 1; i++)
+		{
+			LUT_SuppBordHBGD.data[ImgLab.pixel[0][i]] += 1;
+		}
+		for (int i = 0; i < ImgLab.Nbcol; i++)
+		{
+			LUT_SuppBordHBGD.data[ImgLab.pixel[ImgLab.Nbcol - 1][i]] += 1; // Comptage des pixels du bord bas
+		}
+		for (int i = ind; i < ImgLab.Nblig; i++)
+		{
+			LUT_SuppBordHBGD.data[ImgLab.pixel[i][0]] += 1; // Comptage des pixels du bord gauche
+		}
+		for (int i = ind; i < ImgLab.Nblig; i++)
+		{
+			LUT_SuppBordHBGD.data[ImgLab.pixel[i][ImgLab.Nbcol - 1]] += 1; // Comptage des pixels du bord droit
+		}
+		// Inversion de la LUT
+		for (int i = 1; i < LUT_SuppBordHBGD.size; i++)
+		{
+			if (LUT_SuppBordHBGD.data[i] == 0)
+			{
+				LUT_SuppBordHBGD.data[i] = 255;
+			}
+			else
+			{
+				LUT_SuppBordHBGD.data[i] = 0;
+			}
+		}
+		for (int i = 0; i < (ImgLab.Nblig*ImgLab.Nbcol); i++)
+		{
+			filledIm.data[i] = LUT_SuppBordHBGD.data[ImgLab.data[i]];
+		}
+		ImgLab2 = allocationImage(ImgIn.Nblig, ImgIn.Nbcol);
+		ImgLab2 = fct_EtiquettageImage(filledIm);
+		nb_trou = fct_countobject(ImgLab2);
+		liberationImage(&Imcomp);
+		liberationImage(&ImgLab);
+		liberationImage(&ImgLab2);
+		liberationImage(&filledIm);
+		liberationTableau(&LUT_SuppBordHBGD);
+		return(nb_trou);
+	}
