@@ -1,0 +1,17 @@
+﻿  main.c
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(76): warning C4047: '!=' : les niveaux d'indirection de 'int' et de 'void *' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(81): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(81): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(83): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(83): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(163): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(163): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(164): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(164): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(191): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(191): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(192): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(192): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(26): warning C4101: 'NomFichier' : variable locale non référencée
+  OCRAssames.vcxproj -> C:\Users\ibrahim.hassani\Documents\VisualStudio2015\Projects\HMR_Assamese\Debug\OCRAssames.exe
+  OCRAssames.vcxproj -> C:\Users\ibrahim.hassani\Documents\VisualStudio2015\Projects\HMR_Assamese\Debug\OCRAssames.pdb (Full PDB)

@@ -1,0 +1,26 @@
+#Projet OCR sur des caratères indiens
+#Groupe HMR_ASSAMESE : Lucas MONTATO __ Ibrahim HASSANI __ Clément REIFF
+#
+#Ce fichier explique comment lancer le projet correctement
+#
+#
+1. Avant de lancer le projet, enlever les commentaires sur les instructions dir --> ligne 33 et 34 
+==> system("dir test /S /B *.p*m > listeDesImagestest.txt"); system("dir train /S /B  *.p*m > listeDesImagestrain.txt");
+#
+#
+2. Lancer ensuite le projet et choisir le dossier test (1), le mode lecture à une image (1) et une seule image.
+En cliquant sur entrée, une erreur apparaîtra. Ceci est normal car les images sont classées par sous-dossier. Cliquer sur arrêter.
+#
+#
+3. Aller dans le dossier image et ouvrer le fichier "listeDesImagestest.txt"
+#
+	- Supprimer les lignes de chemin contenants que les sous-dossier ==> 00,01,02,03,04,05,06,07,08,09
+	- Supprimer les lignes en doublons. La liste dans le dossier test commence avec l'image "391.pgm" et s'arrête à "510.pgm". Les lignes suivantes 
+	  sont des doubles des précedentes.
+	- Sauvegarder le fichier et faire la même manip avec le fichier "listeDesImagestrain.txt". La liste d'images dans train commence à "001.pgm" et se termine à "380.pgm"
+	- Enfin, remettre les commentaire sur les instructions dir ==> 	//system("dir test /S /B *.p*m > listeDesImagestest.txt"); //system("dir train /S /B  *.p*m > listeDesImagestrain.txt");
+#
+#
+#Un exemplaire de ficier "listeDesImagestrain.txt" bon et mauvais vous sera joint par mail.
+#
+	
