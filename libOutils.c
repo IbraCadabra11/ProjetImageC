@@ -370,22 +370,21 @@ MATRICE_INT initialisationMatrice(int h, int l, int vMin, int vMax) {
 	matrice.height = h;
 	matrice.width = l;	
 	
-	matrice.data = (int**)malloc(matrice.height * sizeof(int*));
+	matrice.data = (int**)calloc(matrice.height, sizeof(int*));
 	if (matrice.data == NULL)
 		printf("Pb allocation matrice.\n");
 	else
 	{
 		int i;
 		for (i = 0; i < matrice.height; i++)
-			matrice.data[i] = (int*)malloc(matrice.width * sizeof(int));
+			matrice.data[i] = (int*)calloc(matrice.width, sizeof(int*));
 		if (matrice.data[i] == NULL)
 			printf("Pb allocation ligne %d.", i);
 	}
 
-	for (i = 0; i < matrice.height; i++)
+	/*for (i = 0; i < matrice.height; i++)
 		for (j = 0; j < matrice.width; j++)
-			matrice.data[i][j] = vMin + rand() % (vMax + 1 - vMin);
-
+			matrice.data[i][j] = vMin + rand() % (vMax + 1 - vMin);*/
 	return(matrice);
 }
 

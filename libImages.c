@@ -840,11 +840,16 @@ IMAGERGB bruitAleatoireImage(IMAGERGB img, int amplitude)
 
 	return out;
 }
+/*
+************************************************************************************************
+*			Fonction de gestion des bords des images. Duplication des bords					   *
+************************************************************************************************
+*/
 IMAGE fct_replicateImage(IMAGE ImgInput, int nb_duplicate)
 {
 	IMAGE ImgOut = { 0,0,NULL,NULL };
 	int ind1 = 0, ind2 = 0;
-	ImgOut = allocationImage(ImgInput.Nblig + (nb_duplicate*2), ImgInput.Nbcol + (nb_duplicate*2));
+	ImgOut = allocationImage(ImgInput.Nblig + (nb_duplicate * 2), ImgInput.Nbcol + (nb_duplicate * 2));
 	for (int i = 0; i < ImgInput.Nblig; i++)
 	{
 		for (int j = 0; j <ImgInput.Nbcol; j++)
@@ -854,26 +859,28 @@ IMAGE fct_replicateImage(IMAGE ImgInput, int nb_duplicate)
 	}
 	for (int i = 0; i < nb_duplicate; i++)
 	{
-		for (int j = 0; j <ImgOut.Nbcol; j++)
+		ind1 = (ImgOut.Nblig - 1) - i;
+		ind2 = ImgInput.Nblig - 1;
+		for (int j = 0; j <ImgInput.Nbcol; j++)
 		{
-			ImgOut.pixel[i][j] = ImgInput.pixel[i + nb_duplicate][j];
-			ind1 = (ImgOut.Nblig - 1) - i;
-			ind2 = ind1 - nb_duplicate;
-			ImgOut.pixel[ind1][j] = ImgInput.pixel[ind2][j];
+			ImgOut.pixel[i][j + nb_duplicate] = 0;
+			//ImgInput.pixel[0][j];
+			ImgOut.pixel[ind1][j + nb_duplicate] = 0;
+			//ImgInput.pixel[ind2][j];
 		}
 	}
-
-	for (int i = 0; i < nb_duplicate; i++)
+	for (int i = 0; i <nb_duplicate; i++)
 	{
+		ind2 = (ImgOut.Nbcol - 1);
+		ind1 = (ImgOut.Nbcol - 1 - nb_duplicate);
 		for (int j = 0; j <ImgOut.Nblig; j++)
 		{
-			ImgOut.pixel[j][i] = ImgInput.pixel[i][j+nb_duplicate];
-			ind1 = ImgOut.Nbcol - 1 - i;
-			ind2 = ind1 - nb_duplicate;
-			ImgOut.pixel[j][ind1] = ImgInput.pixel[j][ind2];
+			ImgOut.pixel[j][nb_duplicate - 1 - i] = 0;
+			//ImgOut.pixel[j][nb_duplicate];
+			ImgOut.pixel[j][ind2 - i] = 0;
+			//ImgOut.pixel[j][ind1];
 		}
 	}
-
 	return(ImgOut);
 }
 IMAGE fct_EtiquettageImage(IMAGE ImgInput)
@@ -893,8 +900,6 @@ IMAGE fct_EtiquettageImage(IMAGE ImgInput)
 	{
 		table_Equivalence[kk] = kk;
 	}
-
-
 	for (int i = 0; i < ImgInput.Nblig; i++)
 	{
 		indi = nb_replicate + i;
@@ -1004,14 +1009,10 @@ IMAGE fct_EtiquettageImage(IMAGE ImgInput)
 
 IMAGE Division_Image(IMAGE ImgInput,int Nord) //Nord = 1 donc return(ImgOutNord) Nord =0 donc return(ImgOutSud)
 {
-
 	IMAGE ImgOutNord = { 0,0,NULL,NULL };
 	IMAGE ImgOutSud = { 0,0,NULL,NULL };
-
 	int NbligImgOutput = ImgInput.Nblig * ImgInput.Nbcol / 2;
 	int k = 0;
-
-
 	if (Nord == 1)
 	{
 		ImgOutNord = allocationImage(ImgInput.Nblig/2, ImgInput.Nbcol);
@@ -1032,15 +1033,12 @@ IMAGE Division_Image(IMAGE ImgInput,int Nord) //Nord = 1 donc return(ImgOutNord)
 		ImgOutSud.data[k] = ImgInput.data[j];
 
 		}
-
 		return(ImgOutSud);
 	}
 }
 
-
 POINT Center_of_Gravity(IMAGE ImgInput)// x : ligne y: colonne determine le centre de gravite d'une composante connexe
 {
-
 	POINT p = { 0,0 };
 	int i, j, nbpoint = 0;
 	for (i = 0; i < ImgInput.Nblig; i++)
@@ -1053,34 +1051,22 @@ POINT Center_of_Gravity(IMAGE ImgInput)// x : ligne y: colonne determine le cent
 				p.abscisse = p.abscisse + (double)i;
 				p.ordonnee = p.ordonnee + (double)j;
 				nbpoint = nbpoint + 1;
-
-
-
 			}
 		}
 	}
-		
-		
 	 p.abscisse = (int) p.abscisse / (nbpoint);
 	 p.ordonnee = (int) p.ordonnee / (nbpoint);
-
 	return p;
-
 }
 
 double Distance_pixel(POINT p1,POINT p2) // distance euclidienne entre deux pixels
 {
-
 	double ecart = (double)(p1.abscisse - p2.abscisse) * (p1.abscisse - p2.abscisse);
 	double d = ecart;
-
 	ecart = (double)(p1.ordonnee - p2.ordonnee) * (p1.ordonnee - p2.ordonnee);
 	d += ecart;
-
 	d = sqrt(d);
 	return d;
-
-
 }
 
 
@@ -1095,54 +1081,35 @@ double Cercle_Inscrit(IMAGE ImgInput)// l'objet est plein ( par exemple un disqu
 	POINT px = { 0,0 };
 	TABLEAU_DOUBLE TabDist = { 0,NULL };
 	TabDist = allocationTableauDouble(taille);
-
-
 	for (int i = 0; i < ImgInput.Nblig; i++)
 	{
 		for (int j = 0; j < ImgInput.Nbcol; j++)
 		{
-			
-
-			if (ImgInput.pixel[i][j] == 0 )
+			if (ImgInput.pixel[i][j] == 255)
 			{
 				
 				px.abscisse = (double)i;
 				px.ordonnee = (double)j;
 				TabDist.data[k] = Distance_pixel(Centre, px);
 				k++;
-				
- 
 			}
-			
-			
-
 		}
 	}
-
+	R = TabDist.data[0];
 	for (int i = 1; i < ImgInput.Nblig * ImgInput.Nbcol; i++)
 	{
-		R = TabDist.data[0];
-		if (TabDist.data[i] < R)
+		if (TabDist.data[i] < R && TabDist.data[i]!=0)
 		{
 			R = TabDist.data[i];
 		}
-
-		
-
 	}
-
 
 	liberationTableauDouble(&TabDist);
 	return R;
 
 }
 
-
-
-
-double Cercle_Circonscrit(IMAGE ImgInput)// l'objet est plein ( par exemple un disque blanc ou carré blanc) ,recherche la distance maximale entre un pixel blanc et le centre de gravité 
-
-
+double Cercle_Circonscrit(IMAGE ImgInput)// l'objet est creux ( par exemple un disque blanc ou carré blanc) ,recherche la distance maximale entre un pixel blanc et le centre de gravité 
 {
 	double R = 0;
 	int taille = ImgInput.Nblig * ImgInput.Nbcol;
@@ -1157,8 +1124,6 @@ double Cercle_Circonscrit(IMAGE ImgInput)// l'objet est plein ( par exemple un d
 	{
 		for (int j = 0; j < ImgInput.Nbcol; j++)
 		{
-
-
 			if (ImgInput.pixel[i][j] == 255)
 			{
 			
@@ -1166,31 +1131,19 @@ double Cercle_Circonscrit(IMAGE ImgInput)// l'objet est plein ( par exemple un d
 				px.ordonnee = (double)j;
 				TabDist.data[k] = Distance_pixel(Centre, px);
 				k++;
-
-
 			}
-
-
-
 		}
 	}
-
+	R = TabDist.data[0];
 	for (int i = 1; i < ImgInput.Nblig * ImgInput.Nbcol; i++)
 	{
-		R = TabDist.data[0];
-		if (TabDist.data[i] > R)
+		if (TabDist.data[i] > R && TabDist.data[i] != 0)
 		{
 			R = TabDist.data[i];
 		}
-
-
-
 	}
-
-
 	liberationTableauDouble(&TabDist);
 	return R;
-
 }
 STRCT_ELEMENT allocationStructElement(int Nblig, int Nbcol)
 {
@@ -1215,8 +1168,6 @@ STRCT_ELEMENT allocationStructElement(int Nblig, int Nbcol)
 STRCT_ELEMENT fct_generationElementStructurant(int type_Elem, int tailleES)
 {
 	STRCT_ELEMENT ElemStruct = { 0,0,NULL,NULL };
-	
-
 	if (type_Elem == 1)
 	{
 		double R,D;
@@ -1224,40 +1175,35 @@ STRCT_ELEMENT fct_generationElementStructurant(int type_Elem, int tailleES)
 		int Nbcol = (tailleES * 2) + 1;
 		int ci =  tailleES;
 		int cj = tailleES;
+		int ray_carre = tailleES*tailleES;
 		ElemStruct = allocationStructElement(Nblig, Nbcol);
-
 		for (int i = 0; i < Nblig; i++)
 		{
 			for (int j = 0; j < Nbcol; j++)
 			{
 				D = (double)((i - ci) * (i - ci) + (j - cj) * (j - cj));
-				R = sqrt(D);
+				R = sqrt(D) - 0.5;
 				if (R <= (double)tailleES)
 				{
 					ElemStruct.pixel[i][j] = 1;
-					
-
-
 				}
-				
-				else 
+				else
 				{
 					ElemStruct.pixel[i][j] = 0;
-
-
 				}
-				printf("%d", ElemStruct.pixel[i][j]);
 			}
-			printf("\n");
-
+		}
+	}
+	else if (type_Elem == 2)
+	{
+		int tailleLigne = tailleES * 2 + 1;
+		ElemStruct = allocationStructElement(1, tailleLigne);
+		for (int i = 0; i < tailleLigne; i++)
+		{
+			ElemStruct.pixel[0][i] = 1;
 
 		}
-
-
-
 	}
-	system("pause");
-
 	return ElemStruct;
 }
 //Fonction bouchage des trous d'une image binaire
@@ -1289,6 +1235,7 @@ IMAGE fct_bouchageTrou(IMAGE Imgin)
 			LUT_SuppBordHBGD.data[ImgLab.pixel[i][ImgLab.Nbcol-1]] += 1; // Comptage des pixels du bord droit
 		}
 		// Inversion de la LUT
+		LUT_SuppBordHBGD.data[0] = 0;
 		for (int i = 1; i < LUT_SuppBordHBGD.size; i++)
 		{
 			if(LUT_SuppBordHBGD.data[i]==0)
@@ -1304,6 +1251,7 @@ IMAGE fct_bouchageTrou(IMAGE Imgin)
 		{
 			filledIm.data[i] = LUT_SuppBordHBGD.data[ImgLab.data[i]];
 		}
+
 		for (int i = 0; i < (ImgLab.Nblig*ImgLab.Nbcol); i++)
 		{
 			filledIm.data[i] += Imgin.data[i];
@@ -1342,13 +1290,13 @@ int fct_EulerNumber(IMAGE ImgIn)
 		ImgLab = allocationImage(ImgIn.Nblig, ImgIn.Nbcol);
 		Imcomp = inverseImage(ImgIn);
 		ImgLab = fct_EtiquettageImage(Imcomp);
-		for (int i = 0; i < 1, i<ImgLab.Nbcol - 1; i++)
+		for (int i = 0; i<ImgLab.Nbcol - 1; i++)
 		{
 			LUT_SuppBordHBGD.data[ImgLab.pixel[0][i]] += 1;
 		}
 		for (int i = 0; i < ImgLab.Nbcol; i++)
 		{
-			LUT_SuppBordHBGD.data[ImgLab.pixel[ImgLab.Nbcol - 1][i]] += 1; // Comptage des pixels du bord bas
+			LUT_SuppBordHBGD.data[ImgLab.pixel[ImgLab.Nblig - 1][i]] += 1; // Comptage des pixels du bord bas
 		}
 		for (int i = ind; i < ImgLab.Nblig; i++)
 		{
@@ -1359,6 +1307,7 @@ int fct_EulerNumber(IMAGE ImgIn)
 			LUT_SuppBordHBGD.data[ImgLab.pixel[i][ImgLab.Nbcol - 1]] += 1; // Comptage des pixels du bord droit
 		}
 		// Inversion de la LUT
+		LUT_SuppBordHBGD.data[0] = 0;
 		for (int i = 1; i < LUT_SuppBordHBGD.size; i++)
 		{
 			if (LUT_SuppBordHBGD.data[i] == 0)
@@ -1384,3 +1333,323 @@ int fct_EulerNumber(IMAGE ImgIn)
 		liberationTableau(&LUT_SuppBordHBGD);
 		return(nb_trou);
 	}
+IMAGE fct_erosion(IMAGE ImgIn, STRCT_ELEMENT ElementStr)
+{
+	IMAGE ImgOut = { 0,0,NULL,NULL }, ImgBord = { 0,0,NULL,NULL }, ImInter = { 0,0,NULL,NULL };
+	int nb_replicate = ElementStr.NbCol, Decalage_X = 0, Decalage_Y = 0, Is_Zero =0;
+	int ind_kk = 0, ind_zz = 0;
+	ImgOut = allocationImage(ImgIn.Nblig, ImgIn.Nbcol);
+	ImgBord = fct_replicateImage(ImgIn, nb_replicate);
+	ImInter = allocationImage(ImgBord.Nblig, ImgBord.Nbcol);
+	for (int i = nb_replicate; i < (ImgIn.Nblig+nb_replicate); i++)
+	{
+		for (int j = nb_replicate; j < (ImgIn.Nbcol+nb_replicate); j++)
+		{
+			for (int k = Decalage_Y ;k<(ElementStr.NbLig + Decalage_Y); k++)
+			{
+				for (int z = Decalage_X; z < (ElementStr.NbCol - 1 + Decalage_X); z++)
+				{
+					if ((ElementStr.pixel[ind_kk][ind_zz] !=0) && ImgBord.pixel[k][z]==0) // test pour prendre en compte que les pixels situes dans une zone de l'element structurant egale à un
+					{
+						Is_Zero ++;
+					}
+					ind_zz++;
+				}
+				ind_zz = 0;
+				ind_kk++;
+			}
+			ind_kk = 0;
+			if (Is_Zero !=0)
+			{
+				ImInter.pixel[i][j] = 0;
+			}
+			else
+			{
+				ImInter.pixel[i][j] = 255;
+			}
+			Is_Zero = 0;
+			Decalage_X++;
+		}
+		Decalage_X = 0;
+		Decalage_Y++;
+	}
+	for (int i = 0; i < ImgIn.Nblig; i++)
+	{
+		for (int j = 0; j < ImgIn.Nbcol; j++)
+		{
+			ImgOut.pixel[i][j] = ImInter.pixel[i + nb_replicate][j + nb_replicate];
+		}
+
+	}
+	liberationImage(&ImgBord);
+	liberationImage(&ImInter);
+	return(ImgOut);
+
+}
+void liberationStrElement(STRCT_ELEMENT *Str)
+{
+	if (Str->data != NULL) {
+		free(Str->data);
+		Str->data = NULL;
+	}
+	if (Str->pixel != NULL) {
+		free(Str->pixel);
+		Str->pixel = NULL;
+	}
+}
+
+IMAGE fct_dilatation(IMAGE ImgIn, STRCT_ELEMENT ElementStr)
+{
+	IMAGE ImgOut = { 0,0,NULL,NULL }, ImgBord = { 0,0,NULL,NULL }, ImInter = { 0,0,NULL,NULL };;
+	int nb_replicate = ElementStr.NbCol, Decalage_X = 0, Decalage_Y = 0, Is_One = 0;
+	int ind_kk = 0, ind_zz = 0;
+	ImgOut = allocationImage(ImgIn.Nblig, ImgIn.Nbcol);
+	ImgBord = fct_replicateImage(ImgIn, nb_replicate);
+	ImInter = allocationImage(ImgBord.Nblig, ImgBord.Nbcol);
+	for (int i = 0; i < (ImgIn.Nblig*ImgIn.Nbcol); i++)
+	{
+		ImgOut.data[i] = ImgIn.data[i];
+	}
+	for (int i = nb_replicate; i < (ImgIn.Nblig+nb_replicate); i++)
+	{
+		for (int j = nb_replicate; j < (ImgIn.Nbcol+nb_replicate); j++)
+		{
+			for (int k = Decalage_Y; k< (ElementStr.NbLig + Decalage_Y); k++)
+			{
+				for (int z = Decalage_X; z < (ElementStr.NbCol + Decalage_X); z++)
+				{
+					if ((ElementStr.pixel[ind_kk][ind_zz] != 0) && ImgBord.pixel[k][z] != 0) // test pour prendre en compte que les pixels situes dans une zone de l'element structurant egale à un
+					{
+						Is_One ++;
+					}
+					ind_zz++;
+				}
+				ind_zz = 0;
+				ind_kk++;
+			}
+			ind_kk = 0;
+			if (Is_One != 0)
+			{
+				ImInter.pixel[i][j] = 255;
+			}
+			else
+			{
+				ImInter.pixel[i][j] = 0;
+			}
+			Is_One = 0;
+			Decalage_X++;
+		}
+		Decalage_X = 0;
+		Decalage_Y++;
+	}
+	for (int i = 0; i < ImgIn.Nblig; i++)
+	{
+		for (int j = 0; j < ImgIn.Nbcol; j++)
+		{
+			ImgOut.pixel[i][j] = ImInter.pixel[i + nb_replicate][j + nb_replicate];
+		}
+
+	}
+	liberationImage(&ImgBord);
+	liberationImage(&ImInter);
+	return(ImgOut);
+
+
+}
+
+IMAGE fct_Ouverture(IMAGE Imgin, STRCT_ELEMENT ElementStr)
+{
+	IMAGE ImgOut = { 0,0,NULL,NULL };
+	ImgOut = allocationImage(Imgin.Nblig, Imgin.Nbcol);
+	ImgOut= fct_erosion(Imgin, ElementStr);
+	ImgOut = fct_dilatation(ImgOut, ElementStr);
+	return(ImgOut);
+}
+
+IMAGE fct_fermeture(IMAGE Imgin, STRCT_ELEMENT ElementStr)
+{
+	IMAGE ImgOut = { 0,0,NULL,NULL };
+	ImgOut = allocationImage(Imgin.Nblig, Imgin.Nbcol);
+	ImgOut = fct_dilatation(Imgin, ElementStr);
+	ImgOut =  fct_erosion(ImgOut, ElementStr);
+	return(ImgOut);
+}
+IMAGE fct_TopHat(IMAGE Imgin)
+{
+	IMAGE ImgOut = { 0,0,NULL,NULL }, Imboucl = { 0,0,NULL,NULL }, Imfill = { 0,0,NULL,NULL };
+	STRCT_ELEMENT str = { 0,0,NULL,NULL }, str2 ={ 0,0,NULL,NULL };
+	str = fct_generationElementStructurant(1, 1);
+	str2 = fct_generationElementStructurant(1, 5);
+	Imfill = fct_bouchageTrou(Imgin);
+	Imboucl = fct_Ouverture(Imfill, str);
+//	Imboucl = fct_dilatation(Imboucl, str2);
+	ImgOut = allocationImage(Imgin.Nblig, Imgin.Nbcol);
+	for (int i = 0; i < (Imgin.Nblig); i++)
+	{
+		for (int j = 0; j < Imgin.Nbcol; j++)
+		{
+			ImgOut.pixel[i][j] = (Imgin.pixel[i][j] - Imboucl.pixel[i][j]);
+			if (ImgOut.pixel[i][j]<0)
+			{
+				ImgOut.pixel[i][j] = 0;
+			}
+		}
+	}
+	liberationImage(&Imboucl);
+	liberationStrElement(&str);
+	liberationStrElement(&str2);
+	return(ImgOut);
+}
+int fct_Aire(IMAGE img)
+{
+	int Compteur = 0;
+	int i, j;
+
+	for (i = 0; i < img.Nblig*img.Nbcol; i++)
+		if (img.data[i]!= 0)
+			Compteur += 1;
+	return(Compteur);
+}
+
+SIGNATURES_OCR fct_calcSignature(IMAGE ImgIn)
+{
+	SIGNATURES_OCR Sign_Number = { 0,0,0,0 };
+	IMAGE ImBin = { 0,0,NULL,NULL }, Imcomp = { 0,0,NULL,NULL }, ImLab = { 0,0,NULL,NULL }, ImFill = { 0,0,NULL,NULL }, Imclose = { 0,0,NULL,NULL };
+	IMAGE Imboucl = { 0,0,NULL,NULL }, ImNord = { 0,0,NULL,NULL }, ImSud = { 0,0,NULL,NULL }, ImboucleNS = { 0,0,NULL,NULL };
+	IMAGE ImTopHat = { 0,0,NULL,NULL }, ImErodeB1 = { 0,0,NULL,NULL };
+	double R_Inscr = 0, R_Circons = 0;
+	STRCT_ELEMENT Str = { 0,0,NULL,NULL }, Str2 = { 0,0,NULL,NULL }, Str3 = { 0,0,NULL,NULL};
+	Str = fct_generationElementStructurant(1, 1);
+	Str2 = fct_generationElementStructurant(2, 10);
+	Str3 = fct_generationElementStructurant(2, 5);
+	Imcomp = inverseImage(ImgIn);
+	ImBin = seuillageOtsu(Imcomp);
+	Imclose = fct_dilatation(ImBin, Str);
+	ImFill = fct_bouchageTrou(Imclose);
+	Sign_Number.Nb_Euler = fct_EulerNumber(Imclose);
+	switch (Sign_Number.Nb_Euler)
+	{
+	case 0:
+		ImNord = Division_Image(ImBin, 1);
+		ImSud = Division_Image(ImBin, 0);
+		ImNord = fct_dilatation(ImNord,Str2);
+		ImSud = fct_dilatation(ImSud, Str2);
+		Sign_Number.nb_TrouN = fct_EulerNumber(ImNord);
+		Sign_Number.nb_TrouS = fct_EulerNumber(ImSud);
+		if (Sign_Number.nb_TrouN ==1)
+		{
+			Sign_Number.Verdict = 3;
+		}
+		else if (Sign_Number.nb_TrouS==1)
+		{
+			Sign_Number.Verdict = 9;
+		}
+		else
+		{
+			ImErodeB1 = fct_erosion(ImBin, Str2);
+			ImLab = fct_EtiquettageImage(ImErodeB1);
+			Sign_Number.NbObject = fct_countobject(ImLab);
+			if (Sign_Number.NbObject>0)
+			{
+				Sign_Number.Verdict = 2;
+			}
+			else
+			{
+				Sign_Number.Verdict = 6;
+			}
+		}
+
+		break;
+	case 1 :
+	// ******************************Calcule des signatures à boucle 1****************************************************************** //
+	//Calcule du rapport Rayon_circonscrit/rayon_inscrit pour déterminer un objet de forme circulaire									//
+	//Ensuite On mesure l'aire de la boucle pour distinguer une catégorie de chiffre. Faible Air : 1,2,3. Grand Air : 578			   //
+	//Calcule de Tophat et comptage des objets ==> 0 objet-->5, 1 objet --> 7 et 2 objet --> 8										  //
+	//Dicision de l'image: Nord et Sud. partie Nord ==> Une boucle --> 3. Partie sud mesure d'air, petit air -->2, grand air --> 1   //
+	//******************************************************************************************************************************//
+		R_Inscr = Cercle_Inscrit(Imclose);
+		R_Circons = Cercle_Circonscrit(Imclose);
+		Sign_Number.R_InscR_Circons = (R_Circons/R_Inscr);
+		if (Sign_Number.R_InscR_Circons<=2.5)
+		{
+			Sign_Number.Verdict = 0;
+		}
+		else if (Sign_Number.R_InscR_Circons>2.5)
+		{
+			Imboucl = fct_Ouverture(ImFill, Str);
+			Sign_Number.Aire_BoucleOne = fct_Aire(Imboucl);
+			if (Sign_Number.Aire_BoucleOne<500)
+			{
+				ImSud = Division_Image(Imclose,0);
+				ImNord = Division_Image(Imclose,1);
+				Sign_Number.nb_TrouN = fct_EulerNumber(ImNord);
+				Sign_Number.nb_TrouS = fct_EulerNumber(ImSud);
+				if (Sign_Number.nb_TrouN !=0)
+				{
+					Sign_Number.Verdict = 3;
+				}
+				else if(Sign_Number.nb_TrouS !=0)
+				{
+					ImboucleNS = fct_dilatation(ImSud,Str);
+					Sign_Number.Aire_BoucleOne = fct_Aire(ImboucleNS);
+					if (Sign_Number.Aire_BoucleOne<300)
+					{
+						Sign_Number.Verdict = 2;
+					}
+					else
+					{
+						Sign_Number.Verdict = 1;
+					}
+				}
+			}
+			else
+			{
+				ImTopHat = fct_TopHat(ImFill);
+				ImLab = fct_EtiquettageImage(ImTopHat);
+				Sign_Number.NbObject = fct_countobject(ImLab);
+				if (Sign_Number.NbObject ==0)
+				{
+					Sign_Number.Verdict = 5;
+				}
+				else if(Sign_Number.NbObject==1)
+				{
+					Sign_Number.Verdict = 7;
+				}
+				else
+				{
+					Sign_Number.Verdict = 8;
+				}
+			}
+		}
+		break;
+	case 2 :
+		ImFill = fct_bouchageTrou(ImBin);
+		Imboucl = fct_Ouverture(ImFill, Str);
+		Sign_Number.Aire = fct_Aire(Imboucl);
+		if (Sign_Number.Aire>2000)
+		{
+			Sign_Number.Verdict = 4;
+		}
+		else
+		{
+			Sign_Number.Verdict = 2;
+		}
+		break;
+	default:
+		break;
+	}
+	liberationImage(&ImBin);
+	liberationImage(&Imcomp);
+	liberationImage(&ImLab);
+	liberationImage(&ImFill);
+	liberationImage(&Imclose);
+	liberationImage(&Imboucl);
+	liberationImage(&ImNord);
+	liberationImage(&ImSud);
+	liberationImage(&ImboucleNS);
+	liberationImage(&ImTopHat);
+	liberationImage(&ImErodeB1);
+	liberationStrElement(&Str);
+	liberationStrElement(&Str2);
+	return(Sign_Number);
+}

@@ -88,9 +88,30 @@
 	/********************type_Elem : le type d'element structurant==> Disk : 1 ou Ligne  : 2_____TailleEs : rayon pour le disk**********************/
 	STRCT_ELEMENT fct_generationElementStructurant(int type_Elem, int tailleES);
 	STRCT_ELEMENT allocationStructElement(int Nblig, int Nbcol); /* réservation en mémoire d'un element structurant */
+	void liberationStrElement(STRCT_ELEMENT *Str);
 	IMAGE fct_bouchageTrou(IMAGE Imin);
 	int fct_countobject(IMAGE ImgIn);
 	int fct_EulerNumber(IMAGE ImgIn);
+	IMAGE fct_erosion(IMAGE ImgIn, STRCT_ELEMENT ElementStr);
+	IMAGE fct_dilatation(IMAGE ImgIn, STRCT_ELEMENT ElementStr);
+	IMAGE fct_Ouverture(IMAGE Imgin, STRCT_ELEMENT ElementStr);
+	IMAGE fct_fermeture(IMAGE Imgin, STRCT_ELEMENT ElementStr);
+	IMAGE fct_TopHat(IMAGE Imgin);
+	int fct_Aire(IMAGE img);
+	typedef struct
+	{
+		int Aire;
+		int Nb_Euler;
+		double R_InscR_Circons;
+		int Aire_BoucleOne;
+		int nb_TrouN;
+		int nb_TrouS;
+		int Verdict;
+		int NbObject;
+	}SIGNATURES_OCR;
+
+	SIGNATURES_OCR fct_calcSignature(IMAGE ImgIn);
+	int fct_VerdictOCR(SIGNATURES_OCR Sign_OCR);
 
 #endif LIB_IMAGES_H
 
