@@ -1,17 +1,26 @@
 ﻿  main.c
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(76): warning C4047: '!=' : les niveaux d'indirection de 'int' et de 'void *' sont différents
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(81): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(81): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(83): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(83): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(163): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(163): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(164): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(164): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(191): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(191): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(192): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(192): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
-c:\users\ibrahim.hassani\documents\visualstudio2015\projects\hmr_assamese\ocrassames\main.c(26): warning C4101: 'NomFichier' : variable locale non référencée
-  OCRAssames.vcxproj -> C:\Users\ibrahim.hassani\Documents\VisualStudio2015\Projects\HMR_Assamese\Debug\OCRAssames.exe
-  OCRAssames.vcxproj -> C:\Users\ibrahim.hassani\Documents\VisualStudio2015\Projects\HMR_Assamese\Debug\OCRAssames.pdb (Full PDB)
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(76): warning C4047: '!=' : les niveaux d'indirection de 'int' et de 'void *' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(81): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(81): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(83): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(83): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(163): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(163): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(164): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(164): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(191): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(191): warning C4024: 'strcpy' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(192): warning C4047: 'fonction' : les niveaux d'indirection de 'char *' et de 'NOM (*)' sont différents
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(192): warning C4024: 'strtok' : types différents pour le paramètre formel et réel 1
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\hmr_assamese\ocrassames\main.c(26): warning C4101: 'NomFichier' : variable locale non référencée
+  libOutils.c
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\src\liboutils.c(368): warning C4101: 'j' : variable locale non référencée
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\src\liboutils.c(368): warning C4101: 'i' : variable locale non référencée
+  libImages.c
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\src\libimages.c(1080): warning C4020: 'Center_of_Gravity' : paramètres réels trop nombreux
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\src\libimages.c(1118): warning C4020: 'Center_of_Gravity' : paramètres réels trop nombreux
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\src\libimages.c(1506): warning C4101: 'j' : variable locale non référencée
+  Génération de code en cours...
+c:\users\ibrahim.hassani\documents\visualstudio2015\github\projetimagec\src\libimages.c(1038): warning C4715: 'Division_Image' : les chemins de contrôle ne retournent pas tous une valeur
+  OCRAssames.vcxproj -> C:\Users\ibrahim.hassani\Documents\VisualStudio2015\Github\ProjetImageC\HMR_Assamese\Debug\OCRAssames.exe
+  OCRAssames.vcxproj -> C:\Users\ibrahim.hassani\Documents\VisualStudio2015\Github\ProjetImageC\HMR_Assamese\Debug\OCRAssames.pdb (Full PDB)
