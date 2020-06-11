@@ -29,7 +29,7 @@ void main(void)
 	int ind = 0, indiC_nbToken = 0, choixDeLecture = 0, ImAleaToir = 0, Nb_ImageALire = 0;
 	double Vraidetect = 0;
 	srand((unsigned)time(NULL));
-	//mise en m�moire images pgm/ppm/
+	//mise en m�moire images pgm/ppm******/
 	//system("dir test /S /B *.p*m > listeDesImagestest.txt");
 	//system("dir train /S /B  *.p*m > listeDesImagestrain.txt");
 
